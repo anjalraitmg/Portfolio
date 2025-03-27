@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anjal Rai - Web Developer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script>
+        // Configure Tailwind CSS
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary': {
+                            light: '#60A5FA', // Lighter blue
+                            DEFAULT: '#3B82F6', // Default blue
+                            dark: '#1D4ED8' // Darker blue
+                        },
+                        'secondary': {
+                            light: '#34D399', // Lighter green
+                            DEFAULT: '#10B981', // Default green
+                            dark: '#047857' // Darker green
+                        },
+                        'dark': {
+                            'bg': '#0f172a', // Dark blue-gray background
+                            'card': '#1e293b', // Slightly lighter card background
+                            'text': '#e2e8f0', // Light gray text
+                            'heading': '#f8fafc' // White headings
+                        },
+                        'light': {
+                            'bg': '#f1f5f9',    // Very light gray background
+                            'card': '#ffffff',    // White card background
+                            'text': '#334155',    // Dark gray text
+                            'heading': '#0f172a'     // Very dark blue-gray headings
+                        }
+                    },
+                    animation: {
+                        'gradient-x': 'gradient-x 10s ease infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        'gradient-x': {
+                            '0%, 100%': { 'background-position': '0% 50%' },
+                            '50%': { 'background-position': '100% 50%' },
+                        },
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        },
+                        'fade-in-up': {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+
+        // Theme initialization script (runs immediately)
+        ; (function () {
+            function applyTheme(theme) {
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            }
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                applyTheme(savedTheme);
+            } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                applyTheme('dark');
+            }
+        })();
+    </script>
+    <style>
+        /* Custom scrollbar */
+        body::-webkit-scrollbar { width: 8px; }
+        body::-webkit-scrollbar-track { background: transparent; }
+        body::-webkit-scrollbar-thumb { background-color: #3B82F6; border-radius: 20px; border: 2px solid transparent; }
+        .dark body::-webkit-scrollbar-thumb { background-color: #10B981; }
+
+        /* Smooth transitions */
+        body, .bg-light-bg, .bg-dark-bg, .bg-light-card, .bg-dark-card {
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* Active Nav Link Styling */
+        .nav-link.active {
+            color: #3B82F6; /* primary color */
+            font-weight: 600;
+        }
+        .dark .nav-link.active {
+            color: #10B981; /* secondary color */
+        }
+
+        /* Typing Cursor */
+        .typed-cursor {
+            opacity: 1;
+            animation: blink 0.7s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        .dark .typed-cursor {
+            color: #e2e8f0;
+        }
+
+        /* Section Divider */
+        .section-divider {
+            position: relative;
+            height: 50px;
+            overflow: hidden;
+        }
+        .section-divider svg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+        }
+        .section-divider .fill-light-bg { fill: #f1f5f9; }
+        .dark .section-divider .fill-light-bg { fill: #0f172a; }
+        .section-divider .fill-light-card { fill: #ffffff; }
+        .dark .section-divider .fill-light-card { fill: #1e293b; }
+
+
+        /* Timeline */
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -31px; /* Adjust based on icon size and padding */
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background-color: #cbd5e1; /* light mode line */
+        }
+        .dark .timeline-item::before {
+            background-color: #475569; /* dark mode line */
+        }
+        .timeline-item:last-child::before {
+            height: 30px; /* Stop line before the end */
+        }
+        .timeline-icon {
+            position: absolute;
+            left: -42px; /* Center icon on the line */
+            top: 5px; /* Adjust vertical alignment */
+            z-index: 1;
+        }
+
+        /* Project Card Enhancements */
+        .project-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .dark .project-card:hover {
+             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+        }
+        .project-card img {
+            transition: transform 0.3s ease;
+        }
+        .project-card:hover img {
+            transform: scale(1.03);
+        }
+
+        /* Skill Tag Styling */
+        .skill-tag {
+             transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+        .skill-tag:hover {
+            transform: scale(1.1);
+            @apply bg-primary-light dark:bg-secondary-light text-white dark:text-dark-bg;
+        }
+
+        /* Button Hover Gradient */
+        .btn-gradient {
+            @apply bg-gradient-to-r from-primary to-secondary text-white;
+            transition: all 0.3s ease;
+        }
+        .btn-gradient:hover {
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4); /* Primary color shadow */
+            transform: translateY(-2px);
+        }
+        .dark .btn-gradient:hover {
+             box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4); /* Secondary color shadow */
+        }
+
+         /* Contact Form Input Focus */
+        .form-input:focus {
+             @apply ring-2 ring-primary dark:ring-secondary border-transparent;
+        }
+
+    </style>
+</head>
+
+<body class="bg-light-bg text-light-text dark:bg-dark-bg dark:text-dark-text font-sans antialiased">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="bg-light-card/80 dark:bg-dark-card/80 backdrop-blur-md shadow-md fixed w-full z-50 top-0 transition-all duration-300">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0">
+                    <a href="#home" class="text-2xl font-bold text-primary dark:text-secondary hover:opacity-80 transition duration-300">Anjal<span class="text-light-heading dark:text-dark-heading">Rai</span></a>
+                </div>
+                <div class="hidden md:flex md:items-center md:space-x-6">
+                    <a href="#home" class="nav-link text-light-text dark:text-dark-text hover:text-primary dark:hover:text-secondary px-3 py-2 rounded-md text-sm font-medium transition duration-300">Home</a>
+                    <a href="#about" class="nav-link text-light-text dark:text-dark-text hover:text-primary dark:hover:text-secondary px-3 py-2 rounded-md text-sm font-medium transition duration-300">About</a>
+                    <a href="#skills" class="nav-link text-light-text dark:text-dark-text hover:text-primary dark:hover:text-secondary px-3 py-2 rounded-md text-sm font-medium transition duration-300">Skills</a>
+                    <a href="#experience" class="nav-link text-light-text dark:text-dark-text hover:text-primary dark:hover:text-secondary px-3 py-2 rounded-md text-sm font-medium transition duration-300">Experience</a>
+                    <a href="#projects" class="nav-link text-light-text dark:text-dark-text hover:text-primary dark:hover:text-secondary px-3 py-2 rounded-md text-sm font-medium transition duration-300">Projects</a>
+                    <a href="#contact" class="nav-link text-light-text dark:text-dark-text hover:text-primary dark:hover:text-secondary px-3 py-2 rounded-md text-sm font-medium transition duration-300">Contact</a>
+                </div>
+                <div class="flex items-center">
+                    <button id="theme-toggle" class="ml-4 p-2 rounded-full text-light-text dark:text-dark-text hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none transition duration-300">
+                        <i id="theme-icon" class="fas fa-moon text-xl"></i>
+                    </button>
+                    <div class="md:hidden ml-2">
+                        <button id="mobile-menu-toggle" class="inline-flex items-center justify-center p-2 rounded-md text-light-text dark:text-dark-text hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none transition duration-150 ease-in-out">
+                            <i id="menu-icon" class="fas fa-bars text-2xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden transition-all duration-300 ease-out">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="nav-link block text-light-text dark:text-dark-text hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-secondary px-3 py-2 rounded-md text-base font-medium transition duration-300">Home</a>
+                <a href="#about" class="nav-link block text-light-text dark:text-dark-text hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-secondary px-3 py-2 rounded-md text-base font-medium transition duration-300">About</a>
+                <a href="#skills" class="nav-link block text-light-text dark:text-dark-text hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-secondary px-3 py-2 rounded-md text-base font-medium transition duration-300">Skills</a>
+                 <a href="#experience" class="nav-link block text-light-text dark:text-dark-text hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-secondary px-3 py-2 rounded-md text-base font-medium transition duration-300">Experience</a>
+                <a href="#projects" class="nav-link block text-light-text dark:text-dark-text hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-secondary px-3 py-2 rounded-md text-base font-medium transition duration-300">Projects</a>
+                <a href="#contact" class="nav-link block text-light-text dark:text-dark-text hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-secondary px-3 py-2 rounded-md text-base font-medium transition duration-300">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="relative pt-24 md:pt-32 pb-16 min-h-screen flex items-center bg-gradient-to-br from-blue-100 via-white to-emerald-100 dark:from-dark-bg dark:via-slate-800 dark:to-dark-bg text-light-heading dark:text-dark-heading overflow-hidden">
+         <!-- Subtle background shapes -->
+         <div class="absolute top-0 left-0 w-64 h-64 bg-primary/10 dark:bg-primary/20 rounded-full filter blur-3xl opacity-50 animate-pulse"></div>
+         <div class="absolute bottom-0 right-0 w-72 h-72 bg-secondary/10 dark:bg-secondary/20 rounded-full filter blur-3xl opacity-50 animation-delay-2000 animate-pulse"></div>
+
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="text-center md:text-left" data-aos="fade-right">
+                    <span class="text-primary dark:text-secondary font-semibold text-lg">Hello, I'm</span>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold my-3 text-light-heading dark:text-dark-heading">Anjal Rai</h1>
+                    <h2 class="text-2xl sm:text-3xl font-medium text-light-text dark:text-dark-text mb-6">
+                        I'm a <span id="typed-output" class="text-primary dark:text-secondary font-semibold"></span>
+                    </h2>
+                    <p class="text-lg text-light-text dark:text-dark-text mb-8 max-w-xl mx-auto md:mx-0">
+                        Passionate about crafting beautiful, functional, and user-centric web experiences. Turning ideas into interactive digital realities.
+                    </p>
+                    <div class="flex justify-center md:justify-start space-x-4">
+                        <a href="#projects" class="btn-gradient px-6 py-3 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transition duration-300">
+                            View My Work
+                        </a>
+                        <a href="/path/to/your/resume.pdf" target="_blank" class="bg-light-card dark:bg-dark-card text-light-heading dark:text-dark-heading px-6 py-3 rounded-full font-semibold text-lg shadow-md hover:shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-gray-600">
+                            Download CV <i class="fas fa-download ml-2"></i>
+                        </a>
+                    </div>
+                     <div class="mt-12 flex justify-center md:justify-start space-x-6">
+                        <a href="https://github.com/yourusername" target="_blank" aria-label="GitHub Profile" class="text-light-text dark:text-dark-text hover:text-primary dark:hover:text-secondary text-2xl transition duration-300 transform hover:scale-125"><i class="fab fa-github"></i></a>
+                        <a href="https://linkedin.com/in/yourusername" target="_blank" aria-label="LinkedIn Profile" class="text-light-text dark:text-dark-text hover:text-primary dark:hover:text-secondary text-2xl transition duration-300 transform hover:scale-125"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://twitter.com/yourusername" target="_blank" aria-label="Twitter Profile" class="text-light-text dark:text-dark-text hover:text-primary dark:hover:text-secondary text-2xl transition duration-300 transform hover:scale-125"><i class="fab fa-twitter"></i></a>
+                     </div>
+                </div>
+                <div class="flex justify-center items-center" data-aos="fade-left" data-aos-delay="200">
+                    <div class="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
+                         <div class="absolute inset-0 bg-gradient-to-br from-primary to-secondary rounded-full opacity-60 dark:opacity-40 filter blur-2xl animate-float"></div>
+                        <img src="https://via.placeholder.com/400x400/DBEAFE/1E40AF?text=Your+Image" alt="Anjal Rai" class="relative w-full h-full object-cover rounded-full shadow-2xl border-4 border-white dark:border-dark-card animate-float animation-delay-500">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Me Section -->
+    <section id="about" class="py-16 lg:py-24 bg-light-card dark:bg-dark-card">
+         <div class="section-divider rotate-180 -mt-12 mb-12">
+             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
+                 <path class="fill-light-bg dark:fill-dark-bg" d="M0 0 H1440 V100 L0 0 Z"></path>
+             </svg>
+         </div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl lg:text-4xl font-bold text-center mb-12 lg:mb-16 text-light-heading dark:text-dark-heading" data-aos="fade-up">
+                About <span class="text-primary dark:text-secondary">Me</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 items-center">
+                <div class="flex justify-center md:justify-start" data-aos="fade-right" data-aos-duration="800">
+                    <img src="https://via.placeholder.com/350x450/E0E7FF/1E3A8A?text=Profile+Pic" alt="About Anjal Rai" class="rounded-lg shadow-xl w-full max-w-xs md:max-w-sm object-cover transform transition duration-500 hover:scale-105">
+                </div>
+                <div class="md:col-span-2 text-lg text-light-text dark:text-dark-text space-y-4" data-aos="fade-left" data-aos-duration="800" data-aos-delay="200">
+                    <p>
+                        Hi there! I'm Anjal, a dedicated Web Developer with a love for clean code, intuitive design, and pixel-perfect execution. My journey into web development started with a fascination for how websites work, and it has grown into a full-fledged passion for building engaging digital experiences.
+                    </p>
+                    <p>
+                        I thrive on challenges and enjoy solving complex problems. Whether it's architecting a robust backend, crafting a dynamic frontend, or optimizing for performance, I'm always eager to learn and apply new technologies to create the best possible solutions.
+                    </p>
+                    <p>
+                        Beyond coding, I enjoy exploring new tech trends, contributing to open-source projects, and [mention a hobby or two, e.g., hiking, photography, playing the guitar]. Let's connect and build something amazing together!
+                    </p>
+                     <div class="pt-4">
+                        <a href="#contact" class="inline-block btn-gradient px-5 py-2 rounded-full font-semibold shadow-md hover:shadow-lg transition duration-300">Let's Talk!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-16 lg:py-24 bg-light-bg dark:bg-dark-bg">
+        <div class="section-divider -mt-12 mb-12">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
+                <path class="fill-light-card dark:fill-dark-card" d="M0 0 H1440 V100 L0 0 Z"></path>
+            </svg>
+        </div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl lg:text-4xl font-bold text-center mb-12 lg:mb-16 text-light-heading dark:text-dark-heading" data-aos="fade-up">
+                Technical <span class="text-primary dark:text-secondary">Skills</span>
+            </h2>
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="mb-10" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-2xl font-semibold mb-6 text-light-heading dark:text-dark-heading">Frontend</h3>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <span class="skill-tag bg-light-card dark:bg-dark-card px-4 py-2 rounded-full shadow-sm text-light-text dark:text-dark-text font-medium"><i class="fab fa-html5 mr-2 text-orange-500"></i>HTML5</span>
+                        <span class="skill-tag bg-light-card dark:bg-dark-card px-4 py-2 rounded-full shadow-sm text-light-text dark:text-dark-text font-medium"><i class="fab fa-css3-alt mr-2 text-blue-500"></i>CSS3</span>
+                        <span class="skill-tag bg-light-card dark:bg-dark-card px-4 py-2 rounded-full shadow-sm text-light-text dark:text-dark-text font-medium"><i class="fab fa-js mr-2 text-yellow-400"></i>JavaScript (ES6+)</span>
+                        <span class="skill-tag bg-light-card dark:bg-dark-card px-4 py-2 rounded-full shadow-sm text-light-text dark:text-dark-text font-medium"><i class="fab fa-react mr-2 text-cyan-500"></i>React</span>
+                        <span class="skill-tag bg-light-card dark:bg-dark-card px-4 py-2 rounded-full shadow-sm text-light-text dark:text-dark-text font-medium"><i class="fab fa-vuejs mr-2 text-green-500"></i>Vue.js</span>
+                        <span class="skill-tag bg-light-card dark:bg-dark-card px-4 py-2 rounded-full shadow-sm text-light-text dark:text-dark-text font-medium"><i class="fas fa-bold mr-2 text-purple-500"></i>Tailwind CSS</span>
+                         <span class="skill-tag bg-light-card dark:bg-dark-card px-4 py-2 rounded-full shadow-sm text-light-text dark:text-dark-text font-medium"><i class="fab fa-bootstrap mr-2 text-purple-600"></i>Bootstrap</span>
+                    </div>
+                </div>
+                 <div class="mb-10" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="text-2xl font-semibold mb-6 text-light-heading dark:text-dark-heading">Backend</h3>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <span class="skill-tag bg-light-card dark:bg-dark-card px-4 py-2 rounded-full shadow-sm text-light-text dark:text-dark-text font-medium"><i class="fab fa-node-js mr-2 text-green-600"></i>Node.js</span>
+                        <span class="skill-tag bg-light-card dark:bg-dark-card px-4 py-2 rounded-full shadow-sm text-light-text dark:text-dark-text font-medium"><i class="fas fa-server mr-2 text-gray-500"></i>Express.js</span>
+                        <span class="skill-tag bg-light-card dark:bg-dark-card px-4 py-2 rounded-full shadow-sm text-light-text dark:text-dark-text font-medium"><i class="fab fa-python mr-2 text-blue-400"></i>Python</span>
+                        <span class="skill-tag bg-light-card dark:bg-dark-card px-4 py-2 rounded-full shadow-sm text-light-text dark:text-dark-text font-medium"><i class="fas fa-leaf mr-2 text-yellow-600"></i>Django</span>
+                        <span class="skill-tag bg-light-card dark:bg-dark-card px-4 py-2 rounded-full shadow-sm text-light-text dark:text-dark-text font-medium"><i class="fas fa-database mr-2 text-blue-600"></i>SQL (PostgreSQL, MySQL)</span>
+                        <span class="skill-tag bg-light-card dark:bg-dark-card px-4 py-2 rounded-full shadow-sm text-light-text dark:text-dark-text font-medium"><i class="fas fa-database mr-2 text-green-700"></i>NoSQL (MongoDB)</span>
+                         <span class="skill-tag bg-light-card dark:bg-dark-card px-4 py-2 rounded-full shadow-sm text-light-text dark:text-dark-text font-medium"><i class="fas fa-fire mr-2 text-orange-400"></i>Firebase</span>
+                    </div>
+                </div>
+                 <div data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="text-2xl font-semibold mb-6 text-light-heading dark:text-dark-heading">Tools & Others</h3>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <span class="skill-tag bg-light-card dark:bg-dark-card px-4 py-2 rounded-full shadow-sm text-light-text dark:text-dark-text font-medium"><i class="fab fa-git-alt mr-2 text-red-500"></i>Git & GitHub</span>
+                        <span class="skill-tag bg-light-card dark:bg-dark-card px-4 py-2 rounded-full shadow-sm text-light-text dark:text-dark-text font-medium"><i class="fab fa-docker mr-2 text-blue-600"></i>Docker</span>
+                         <span class="skill-tag bg-light-card dark:bg-dark-card px-4 py-2 rounded-full shadow-sm text-light-text dark:text-dark-text font-medium"><i class="fas fa-cloud mr-2 text-sky-500"></i>REST APIs</span>
+                         <span class="skill-tag bg-light-card dark:bg-dark-card px-4 py-2 rounded-full shadow-sm text-light-text dark:text-dark-text font-medium"><i class="fas fa-vial mr-2 text-purple-400"></i>Testing (Jest, Cypress)</span>
+                         <span class="skill-tag bg-light-card dark:bg-dark-card px-4 py-2 rounded-full shadow-sm text-light-text dark:text-dark-text font-medium"><i class="fab fa-aws mr-2 text-orange-500"></i>AWS (Basic)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- Experience Section -->
+    <section id="experience" class="py-16 lg:py-24 bg-light-card dark:bg-dark-card">
+        <div class="section-divider rotate-180 -mt-12 mb-12">
+             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
+                 <path class="fill-light-bg dark:fill-dark-bg" d="M0 0 H1440 V100 L0 0 Z"></path>
+             </svg>
+         </div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+             <h2 class="text-3xl lg:text-4xl font-bold text-center mb-12 lg:mb-16 text-light-heading dark:text-dark-heading" data-aos="fade-up">
+                My <span class="text-primary dark:text-secondary">Experience</span>
+            </h2>
+            <div class="relative max-w-2xl mx-auto">
+                <!-- Timeline Item 1 -->
+                <div class="timeline-item pl-10 pb-12 relative" data-aos="fade-up">
+                    <div class="timeline-icon w-10 h-10 bg-primary dark:bg-secondary text-white rounded-full flex items-center justify-center shadow-md">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <span class="text-sm font-semibold text-primary dark:text-secondary uppercase">Jan 2022 - Present</span>
+                    <h3 class="text-xl font-semibold mt-1 mb-2 text-light-heading dark:text-dark-heading">Full Stack Developer - Tech Solutions Inc.</h3>
+                    <p class="text-light-text dark:text-dark-text">
+                        Developed and maintained web applications using React, Node.js, and PostgreSQL. Collaborated with cross-functional teams to define, design, and ship new features. Improved application performance by 20% through code optimization and database indexing.
+                    </p>
+                </div>
+                <!-- Timeline Item 2 -->
+                 <div class="timeline-item pl-10 pb-12 relative" data-aos="fade-up">
+                    <div class="timeline-icon w-10 h-10 bg-primary dark:bg-secondary text-white rounded-full flex items-center justify-center shadow-md">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <span class="text-sm font-semibold text-primary dark:text-secondary uppercase">Jun 2021 - Dec 2021</span>
+                    <h3 class="text-xl font-semibold mt-1 mb-2 text-light-heading dark:text-dark-heading">Frontend Developer Intern - Creative Agency</h3>
+                    <p class="text-light-text dark:text-dark-text">
+                       Assisted senior developers in building responsive user interfaces using HTML, CSS, and Vue.js. Participated in code reviews and learned best practices for frontend development and version control with Git.
+                    </p>
+                </div>
+                 <!-- Timeline Item 3 (Education) -->
+                 <div class="timeline-item pl-10 pb-4 relative" data-aos="fade-up">
+                    <div class="timeline-icon w-10 h-10 bg-primary dark:bg-secondary text-white rounded-full flex items-center justify-center shadow-md">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <span class="text-sm font-semibold text-primary dark:text-secondary uppercase">2018 - 2022</span>
+                    <h3 class="text-xl font-semibold mt-1 mb-2 text-light-heading dark:text-dark-heading">B.Sc. in Computer Science - University Name</h3>
+                    <p class="text-light-text dark:text-dark-text">
+                        Relevant coursework: Data Structures, Algorithms, Web Development, Database Management. Dean's List for 3 semesters.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-16 lg:py-24 bg-light-bg dark:bg-dark-bg">
+         <div class="section-divider -mt-12 mb-12">
+             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
+                 <path class="fill-light-card dark:fill-dark-card" d="M0 0 H1440 V100 L0 0 Z"></path>
+             </svg>
+         </div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl lg:text-4xl font-bold text-center mb-12 lg:mb-16 text-light-heading dark:text-dark-heading" data-aos="fade-up">
+                Featured <span class="text-primary dark:text-secondary">Projects</span>
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+                <!-- Project Card 1 -->
+                <div class="project-card bg-light-card dark:bg-dark-card rounded-lg shadow-md overflow-hidden flex flex-col" data-aos="fade-up">
+                    <div class="overflow-hidden">
+                         <img src="https://via.placeholder.com/400x250/BFDBFE/1E40AF?text=Project+1+Screenshot" alt="Project 1" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="font-bold text-xl mb-2 text-light-heading dark:text-dark-heading">E-Commerce Platform</h3>
+                        <p class="text-light-text dark:text-dark-text mb-4 flex-grow">A full-featured online store built with React, Node.js, Express, and MongoDB. Includes product listings, cart functionality, user authentication, and Stripe integration.</p>
+                        <div class="mb-4">
+                            <span class="inline-block bg-primary/10 text-primary dark:bg-secondary/20 dark:text-secondary text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">React</span>
+                            <span class="inline-block bg-primary/10 text-primary dark:bg-secondary/20 dark:text-secondary text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">Node.js</span>
+                            <span class="inline-block bg-primary/10 text-primary dark:bg-secondary/20 dark:text-secondary text-xs font-semibold px-2.5 py-0.5 rounded">MongoDB</span>
+                        </div>
+                        <div class="flex space-x-4 mt-auto">
+                            <a href="#" target="_blank" class="text-primary dark:text-secondary hover:underline font-medium"><i class="fab fa-github mr-1"></i> Code</a>
+                            <a href="#" target="_blank" class="text-primary dark:text-secondary hover:underline font-medium"><i class="fas fa-external-link-alt mr-1"></i> Live Demo</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project Card 2 -->
+                <div class="project-card bg-light-card dark:bg-dark-card rounded-lg shadow-md overflow-hidden flex flex-col" data-aos="fade-up" data-aos-delay="100">
+                     <div class="overflow-hidden">
+                        <img src="https://via.placeholder.com/400x250/A5F3FC/0E7490?text=Project+2+Screenshot" alt="Project 2" class="w-full h-48 object-cover">
+                     </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="font-bold text-xl mb-2 text-light-heading dark:text-dark-heading">Real-time Chat App</h3>
+                        <p class="text-light-text dark:text-dark-text mb-4 flex-grow">A responsive chat application enabling real-time communication using Socket.IO, Vue.js for the frontend, and Express for the backend.</p>
+                         <div class="mb-4">
+                            <span class="inline-block bg-primary/10 text-primary dark:bg-secondary/20 dark:text-secondary text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">Vue.js</span>
+                            <span class="inline-block bg-primary/10 text-primary dark:bg-secondary/20 dark:text-secondary text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">Socket.IO</span>
+                            <span class="inline-block bg-primary/10 text-primary dark:bg-secondary/20 dark:text-secondary text-xs font-semibold px-2.5 py-0.5 rounded">Express</span>
+                        </div>
+                        <div class="flex space-x-4 mt-auto">
+                            <a href="#" target="_blank" class="text-primary dark:text-secondary hover:underline font-medium"><i class="fab fa-github mr-1"></i> Code</a>
+                            <a href="#" target="_blank" class="text-primary dark:text-secondary hover:underline font-medium"><i class="fas fa-external-link-alt mr-1"></i> Live Demo</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project Card 3 -->
+                 <div class="project-card bg-light-card dark:bg-dark-card rounded-lg shadow-md overflow-hidden flex flex-col" data-aos="fade-up" data-aos-delay="200">
+                     <div class="overflow-hidden">
+                        <img src="https://via.placeholder.com/400x250/FECACA/991B1B?text=Project+3+Screenshot" alt="Project 3" class="w-full h-48 object-cover">
+                     </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="font-bold text-xl mb-2 text-light-heading dark:text-dark-heading">Portfolio Website (This one!)</h3>
+                        <p class="text-light-text dark:text-dark-text mb-4 flex-grow">My personal portfolio website built with HTML, Tailwind CSS, and vanilla JavaScript, featuring smooth animations and a dark mode toggle.</p>
+                         <div class="mb-4">
+                            <span class="inline-block bg-primary/10 text-primary dark:bg-secondary/20 dark:text-secondary text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">HTML</span>
+                            <span class="inline-block bg-primary/10 text-primary dark:bg-secondary/20 dark:text-secondary text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">Tailwind CSS</span>
+                            <span class="inline-block bg-primary/10 text-primary dark:bg-secondary/20 dark:text-secondary text-xs font-semibold px-2.5 py-0.5 rounded">JavaScript</span>
+                        </div>
+                        <div class="flex space-x-4 mt-auto">
+                            <a href="#" target="_blank" class="text-primary dark:text-secondary hover:underline font-medium"><i class="fab fa-github mr-1"></i> Code</a>
+                            </div>
+                    </div>
+                </div>
+                <!-- Add more project cards as needed -->
+            </div>
+             <div class="text-center mt-12" data-aos="fade-up">
+                <a href="https://github.com/yourusername" target="_blank" class="inline-block bg-light-card dark:bg-dark-card text-light-heading dark:text-dark-heading px-6 py-3 rounded-full font-semibold shadow-md hover:shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-gray-600">
+                    View More on GitHub <i class="fab fa-github ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+     <!-- Testimonials Section (Optional but Recommended) -->
+    <section id="testimonials" class="py-16 lg:py-24 bg-light-card dark:bg-dark-card">
+         <div class="section-divider rotate-180 -mt-12 mb-12">
+             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
+                 <path class="fill-light-bg dark:fill-dark-bg" d="M0 0 H1440 V100 L0 0 Z"></path>
+             </svg>
+         </div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl lg:text-4xl font-bold text-center mb-12 lg:mb-16 text-light-heading dark:text-dark-heading" data-aos="fade-up">
+                What <span class="text-primary dark:text-secondary">Others Say</span>
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial Card 1 -->
+                <div class="bg-light-bg dark:bg-dark-bg p-6 rounded-lg shadow-lg" data-aos="fade-up">
+                     <div class="flex items-center mb-4">
+                         <img src="https://via.placeholder.com/50x50/93C5FD/1E3A8A?text=JD" alt="Testimonial Author 1" class="w-12 h-12 rounded-full mr-4 object-cover">
+                        <div>
+                            <p class="font-semibold text-light-heading dark:text-dark-heading">Jane Doe</p>
+                            <p class="text-sm text-primary dark:text-secondary">Project Manager, Tech Solutions Inc.</p>
+                        </div>
+                     </div>
+                    <p class="text-light-text dark:text-dark-text italic">"Anjal is a highly skilled developer with a keen eye for detail. He consistently delivered high-quality work and was a valuable asset to our team. Pleasure to work with!"</p>
+                </div>
+                 <!-- Testimonial Card 2 -->
+                 <div class="bg-light-bg dark:bg-dark-bg p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="100">
+                     <div class="flex items-center mb-4">
+                         <img src="https://via.placeholder.com/50x50/A7F3D0/047857?text=JS" alt="Testimonial Author 2" class="w-12 h-12 rounded-full mr-4 object-cover">
+                        <div>
+                            <p class="font-semibold text-light-heading dark:text-dark-heading">John Smith</p>
+                            <p class="text-sm text-primary dark:text-secondary">Lead Designer, Creative Agency</p>
+                        </div>
+                     </div>
+                    <p class="text-light-text dark:text-dark-text italic">"Working with Anjal was great. He has a strong understanding of both design principles and technical implementation, making collaboration smooth and effective."</p>
+                </div>
+                 <!-- Testimonial Card 3 -->
+                <div class="bg-light-bg dark:bg-dark-bg p-6 rounded-lg shadow-lg md:col-span-2 lg:col-span-1" data-aos="fade-up" data-aos-delay="200">
+                     <div class="flex items-center mb-4">
+                         <img src="https://via.placeholder.com/50x50/FBCFE8/831843?text=AC" alt="Testimonial Author 3" class="w-12 h-12 rounded-full mr-4 object-cover">
+                        <div>
+                            <p class="font-semibold text-light-heading dark:text-dark-heading">Alice Chen</p>
+                            <p class="text-sm text-primary dark:text-secondary">Freelance Client</p>
+                        </div>
+                     </div>
+                    <p class="text-light-text dark:text-dark-text italic">"Anjal built my website exactly as I envisioned it. He was communicative, professional, and delivered the project on time. Highly recommended!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 lg:py-24 bg-light-bg dark:bg-dark-bg">
+         <div class="section-divider -mt-12 mb-12">
+             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
+                 <path class="fill-light-card dark:fill-dark-card" d="M0 0 H1440 V100 L0 0 Z"></path>
+             </svg>
+         </div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl lg:text-4xl font-bold text-center mb-12 lg:mb-16 text-light-heading dark:text-dark-heading" data-aos="fade-up">
+                Get In <span class="text-primary dark:text-secondary">Touch</span>
+            </h2>
+            <div class="max-w-3xl mx-auto bg-light-card dark:bg-dark-card p-8 rounded-lg shadow-xl" data-aos="zoom-in">
+                <p class="text-center text-lg text-light-text dark:text-dark-text mb-8">
+                    Have a project in mind or just want to say hi? Feel free to reach out!
+                </p>
+                 <form action="https://formspree.io/f/your_form_id" method="POST"> {/* Replace with your Formspree endpoint */}
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-light-text dark:text-dark-text mb-1">Name</label>
+                            <input type="text" name="name" id="name" required class="form-input w-full px-4 py-2 bg-light-bg dark:bg-dark-bg border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-light-text dark:text-dark-text mb-1">Email</label>
+                            <input type="email" name="email" id="email" required class="form-input w-full px-4 py-2 bg-light-bg dark:bg-dark-bg border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2">
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <label for="message" class="block text-sm font-medium text-light-text dark:text-dark-text mb-1">Message</label>
+                        <textarea name="message" id="message" rows="5" required class="form-input w-full px-4 py-2 bg-light-bg dark:bg-dark-bg border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2"></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn-gradient px-8 py-3 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transition duration-300">
+                           Send Message <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </div>
+                </form>
+
+                 <div class="mt-12 text-center border-t border-gray-300 dark:border-gray-600 pt-8">
+                     <p class="text-light-text dark:text-dark-text mb-2">Or reach me directly:</p>
+                    <a href="mailto:your.email@example.com" class="text-primary dark:text-secondary hover:underline text-lg font-medium mb-4 inline-block"><i class="fas fa-envelope mr-2"></i>your.email@example.com</a>
+                     <div class="flex justify-center space-x-6">
+                        <a href="https://github.com/yourusername" target="_blank" aria-label="GitHub Profile" class="text-light-text dark:text-dark-text hover:text-primary dark:hover:text-secondary text-2xl transition duration-300 transform hover:scale-125"><i class="fab fa-github"></i></a>
+                        <a href="https://linkedin.com/in/yourusername" target="_blank" aria-label="LinkedIn Profile" class="text-light-text dark:text-dark-text hover:text-primary dark:hover:text-secondary text-2xl transition duration-300 transform hover:scale-125"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://twitter.com/yourusername" target="_blank" aria-label="Twitter Profile" class="text-light-text dark:text-dark-text hover:text-primary dark:hover:text-secondary text-2xl transition duration-300 transform hover:scale-125"><i class="fab fa-twitter"></i></a>
+                     </div>
+                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark-card text-dark-text py-8">
+        <div class="container mx-auto px-4 text-center">
+             <p>&copy; <span id="current-year"></span> Anjal Rai. All Rights Reserved.</p>
+             <p class="text-sm mt-2">Built with <i class="fas fa-heart text-red-500"></i> using Tailwind CSS &amp; JavaScript</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollTopBtn" class="fixed bottom-5 right-5 w-12 h-12 bg-primary dark:bg-secondary text-white rounded-full shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300 hover:bg-primary-dark dark:hover:bg-secondary-dark focus:outline-none z-40 scale-90 hover:scale-100">
+        <i class="fas fa-arrow-up text-xl"></i>
+    </button>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50, // Offset (in px) from the original trigger point
+            easing: 'ease-out-cubic',
+        });
+
+        // Typed.js Initialization
+        document.addEventListener('DOMContentLoaded', function () {
+            var options = {
+                strings: ['Web Developer', 'Frontend Specialist', 'UI/UX Enthusiast', 'Problem Solver'],
+                typeSpeed: 50,
+                backSpeed: 30,
+                backDelay: 1500,
+                startDelay: 500,
+                loop: true,
+                showCursor: true,
+                cursorChar: '|',
+            };
+            var typed = new Typed('#typed-output', options);
+
+            // Set current year in footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        });
+
+         // Theme Toggle Functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIcon = document.getElementById('theme-icon');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+            function applyTheme(theme) {
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                }
+            }
+
+            function toggleTheme() {
+                const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                localStorage.setItem('theme', newTheme);
+                applyTheme(newTheme);
+            }
+
+            // Load saved theme or default to system preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                applyTheme(savedTheme);
+            } else {
+                applyTheme(prefersDark.matches ? 'dark' : 'light');
+            }
+
+            themeToggle.addEventListener('click', toggleTheme);
+
+             // Listen for system theme changes (optional: update if no user preference set)
+            // prefersDark.addEventListener('change', (e) => {
+            //     if (!localStorage.getItem('theme')) {
+            //         applyTheme(e.matches ? 'dark' : 'light');
+            //     }
+            // });
+        });
+
+        // Mobile Menu Toggle
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+             const navLinks = mobileMenu.querySelectorAll('a'); // Get all links in mobile menu
+
+            mobileMenuToggle.addEventListener('click', function () {
+                const isHidden = mobileMenu.classList.toggle('hidden');
+                 mobileMenu.classList.toggle('max-h-0', isHidden); // Use max-height for transition
+                 mobileMenu.classList.toggle('max-h-screen', !isHidden); // Adjust max-height as needed
+                 mobileMenu.classList.toggle('py-2', !isHidden); // Add padding when open
+
+
+                if (isHidden) {
+                    menuIcon.classList.remove('fa-times');
+                    menuIcon.classList.add('fa-bars');
+                } else {
+                    menuIcon.classList.remove('fa-bars');
+                    menuIcon.classList.add('fa-times');
+                }
+            });
+
+             // Close mobile menu when a link is clicked
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                     if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenuToggle.click(); // Simulate a click on the toggle button
+                    }
+                });
+            });
+        });
+
+        // Scroll to Top Button Functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+            window.addEventListener('scroll', function () {
+                if (window.pageYOffset > 300) {
+                    scrollTopBtn.classList.remove('opacity-0', 'invisible', 'scale-90');
+                    scrollTopBtn.classList.add('opacity-100', 'visible', 'scale-100');
+                } else {
+                     scrollTopBtn.classList.add('opacity-0', 'invisible', 'scale-90');
+                     scrollTopBtn.classList.remove('opacity-100', 'visible', 'scale-100');
+                }
+            });
+
+            scrollTopBtn.addEventListener('click', function () {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+         // Active Navigation Link Highlighting on Scroll
+        document.addEventListener('DOMContentLoaded', function () {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const navHeight = document.getElementById('navbar').offsetHeight;
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                const scrollY = window.pageYOffset;
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - navHeight - 50; // Adjusted offset
+                    if (scrollY >= sectionTop) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                 // Special case for home section at the very top
+                if (scrollY < sections[0].offsetTop - navHeight - 50) {
+                     current = 'home';
+                }
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+
+
+    </script>
+</body>
+
+</html>
