@@ -767,3 +767,9 @@ html.dark .footer {
 html.dark ::-webkit-scrollbar-thumb {
   background-color: var(--color-secondary);
 }
+@media (max-width: 350px) {
+  .g-recaptcha-wrapper {
+    transform: scale(0.77);
+    transform-origin: 50% 0;
+  }
+}
