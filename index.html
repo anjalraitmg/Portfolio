@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anjal Rai - Portfolio</title>
+    <meta
+      name="description"
+      content="Portfolio of Anjal Rai, a passionate web developer specializing in creating beautiful and functional web experiences."
+    />
+    <meta
+      name="keywords"
+      content="web developer, portfolio, anjal rai, react, nodejs, javascript, css3"
+    />
+    <link rel="icon" type="image/png" href="assets/images/logo.png" />
+
+    <!-- External Libraries (Font Awesome for icons, AOS for scroll animations) -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <!-- Your Custom Plain CSS Stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav id="navbar" class="navbar">
+      <div class="navbar-container">
+        <div class="navbar-brand">
+          <a href="#home" class="logo-link">
+            <img
+              class="logo-img"
+              src="assets/images/logo.png"
+              alt="Anjal Rai Portfolio Logo"
+            />
+            <span class="logo-text"
+              >Anjal<span class="logo-text-secondary">Rai</span></span
+            >
+          </a>
+        </div>
+        <div class="desktop-nav">
+          <a href="#home" class="nav-link">Home</a>
+          <a href="#about" class="nav-link">About</a>
+          <a href="#skills" class="nav-link">Skills</a>
+          <a href="#experience" class="nav-link">Experience</a>
+          <a href="#projects" class="nav-link">Projects</a>
+          <a href="#contact" class="nav-link">Contact</a>
+        </div>
+        <div class="nav-actions">
+          <button
+            id="theme-toggle"
+            class="theme-toggle"
+            aria-label="Toggle dark mode"
+          >
+            <i id="theme-icon" class="fas fa-moon"></i>
+          </button>
+          <div class="mobile-menu-toggle-wrapper">
+            <button
+              id="mobile-menu-toggle"
+              class="mobile-menu-toggle"
+              aria-label="Toggle mobile menu"
+            >
+              <i id="menu-icon" class="fas fa-bars"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div id="mobile-menu" class="mobile-menu">
+        <div class="mobile-menu-links">
+          <a href="#home" class="nav-link-mobile">Home</a>
+          <a href="#about" class="nav-link-mobile">About</a>
+          <a href="#skills" class="nav-link-mobile">Skills</a>
+          <a href="#experience" class="nav-link-mobile">Experience</a>
+          <a href="#projects" class="nav-link-mobile">Projects</a>
+          <a href="#contact" class="nav-link-mobile">Contact</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="hero">
+      <div class="hero-bg-shape shape-1"></div>
+      <div class="hero-bg-shape shape-2"></div>
+      <div class="container hero-container">
+        <div class="hero-grid">
+          <div class="hero-content" data-aos="fade-right">
+            <span class="hero-subtitle">Hello, I'm</span>
+            <h1 class="hero-title">Anjal Rai</h1>
+            <h2 class="hero-tagline">
+              I'm a <span id="typed-output" class="hero-typed-text"></span>
+            </h2>
+            <p class="hero-description">
+              Passionate about crafting beautiful, functional, and user-centric
+              web experiences. Turning ideas into interactive digital realities.
+            </p>
+            <div class="hero-buttons">
+              <a href="#projects" class="btn btn-primary">View My Work</a>
+              <a
+                href="https://drive.google.com/file/d/13jgNg_Z85jghmzUymYRn2fsRVsdJZ2v6/view?usp=drive_link"
+                target="_blank"
+                class="btn btn-secondary"
+                >Download CV <i class="fas fa-download"></i
+              ></a>
+            </div>
+            <div class="hero-socials">
+              <a
+                href="https://github.com/anjalraitmg"
+                target="_blank"
+                aria-label="GitHub Profile"
+                class="social-link"
+                ><i class="fab fa-github"></i
+              ></a>
+              <a
+                href="https://linkedin.com/in/anjalrai123"
+                target="_blank"
+                aria-label="LinkedIn Profile"
+                class="social-link"
+                ><i class="fab fa-linkedin"></i
+              ></a>
+              <a
+                href="https://twitter.com/anjalrai123"
+                target="_blank"
+                aria-label="Twitter Profile"
+                class="social-link"
+                ><i class="fab fa-twitter"></i
+              ></a>
+            </div>
+          </div>
+          <div
+            class="hero-image-wrapper"
+            data-aos="fade-left"
+            data-aos-delay="200"
+          >
+            <div class="hero-image-container">
+              <div class="hero-image-blob"></div>
+              <img
+                src="assets/images/logo.png"
+                alt="Anjal Rai"
+                class="hero-image"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- About Me Section -->
+    <section id="about" class="about-section section-card">
+      <div class="section-divider-wrapper top">
+        <div class="section-divider top"></div>
+      </div>
+      <div class="container">
+        <h2 class="section-title" data-aos="fade-up">
+          About <span class="text-highlight">Me</span>
+        </h2>
+        <div class="about-grid">
+          <div
+            class="about-image-wrapper"
+            data-aos="fade-right"
+            data-aos-duration="800"
+          >
+            <img
+              src="assets/images/logo.png"
+              alt="About Anjal Rai"
+              class="about-image"
+              loading="lazy"
+            />
+          </div>
+          <div
+            class="about-content"
+            data-aos="fade-left"
+            data-aos-duration="800"
+            data-aos-delay="200"
+          >
+            <p>
+              Hi there! I'm Anjal, a dedicated Web Developer with a love for
+              clean code, intuitive design, and pixel-perfect execution. My
+              journey into web development started with a fascination for how
+              websites work, and it has grown into a full-fledged passion for
+              building engaging digital experiences.
+            </p>
+            <p>
+              I thrive on challenges and enjoy solving complex problems. Whether
+              it's architecting a robust backend, crafting a dynamic frontend,
+              or optimizing for performance, I'm always eager to learn and apply
+              new technologies to create the best possible solutions.
+            </p>
+            <p>
+              Beyond coding, I enjoy exploring new tech trends, contributing to
+              open-source projects, and [mention a hobby or two, e.g., hiking,
+              photography, playing the guitar]. Let's connect and build
+              something amazing together!
+            </p>
+            <div class="about-button-wrapper">
+              <a href="#contact" class="btn btn-primary small">Let's Talk!</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- (Your other sections would be refactored similarly) -->
+    <!-- ... -->
+    <!-- ... -->
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section section-bg">
+      <div class="section-divider-wrapper bottom">
+        <div class="section-divider bottom"></div>
+      </div>
+      <div class="container">
+        <h2 class="section-title" data-aos="fade-up">
+          Get In <span class="text-highlight">Touch</span>
+        </h2>
+        <div class="contact-card" data-aos="zoom-in">
+          <p class="contact-intro">
+            Have a project in mind or just want to say hi? Feel free to reach
+            out!
+          </p>
+          <form
+            id="contact-form"
+            action="https://formspree.io/f/xdkwoggy"
+            method="POST"
+            class="contact-form"
+          >
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="name" class="form-label">Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  required
+                  class="form-input"
+                />
+              </div>
+              <div class="form-group">
+                <label for="email" class="form-label">Email</label>
+                <input
+                  type="email"
+                  name="_replyto"
+                  id="email"
+                  required
+                  class="form-input"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="message" class="form-label">Message</label>
+              <textarea
+                name="message"
+                id="message"
+                rows="5"
+                required
+                class="form-input"
+              ></textarea>
+            </div>
+
+            <div class="form-group g-recaptcha-wrapper">
+              <div
+                class="g-recaptcha"
+                data-sitekey="6LfAVdMrAAAAAO6vOPjs-RxxB3EFHNmmni7DA5-H"
+              ></div>
+            </div>
+            <div class="form-submit-wrapper">
+              <button type="submit" class="btn btn-primary">
+                Send Message <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+          </form>
+          <p id="form-status" class="form-status"></p>
+          <div class="contact-footer">
+            <p class="contact-footer-text">Or reach me directly:</p>
+            <a href="mailto:anjalrai925@gmail.com" class="contact-email-link"
+              ><i class="fas fa-envelope"></i> anjalrai925@gmail.com</a
+            >
+            <div class="hero-socials">
+              <a
+                href="https://github.com/anjalraitmg"
+                target="_blank"
+                aria-label="GitHub Profile"
+                class="social-link"
+                ><i class="fab fa-github"></i
+              ></a>
+              <a
+                href="https://linkedin.com/in/anjalrai123"
+                target="_blank"
+                aria-label="LinkedIn Profile"
+                class="social-link"
+                ><i class="fab fa-linkedin"></i
+              ></a>
+              <a
+                href="https://twitter.com/anjalrai123"
+                target="_blank"
+                aria-label="Twitter Profile"
+                class="social-link"
+                ><i class="fab fa-twitter"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container footer-container">
+        <p>
+          &copy; <span id="current-year"></span> Anjal Rai. All Rights Reserved.
+        </p>
+        <p class="footer-subtext">
+          Built with <i class="fas fa-heart footer-heart"></i> using CSS3 &amp;
+          JavaScript
+        </p>
+      </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Scroll to top">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- External JS Libraries -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
