@@ -1,6 +1,4 @@
-// Main entry point for all JavaScript
 document.addEventListener("DOMContentLoaded", () => {
-  // Initialize all modules
   AOS.init({
     duration: 800,
     once: true,
@@ -15,7 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initScrollSpy();
   initContactForm();
 
-  // Set footer year
   const yearSpan = document.getElementById("current-year");
   if (yearSpan) {
     yearSpan.textContent = new Date().getFullYear();
@@ -42,14 +39,12 @@ function initTyped() {
 }
 
 // Handles the light/dark mode theme toggle
-// Handles the light/dark mode theme toggle
 function initThemeToggle() {
   const themeToggle = document.getElementById("theme-toggle");
   const themeIcon = document.getElementById("theme-icon");
   if (!themeToggle || !themeIcon) return;
 
   const applyTheme = (theme) => {
-    // --- This part is the same ---
     if (theme === "dark") {
       document.documentElement.classList.add("dark");
       themeIcon.classList.replace("fa-moon", "fa-sun");
@@ -58,7 +53,6 @@ function initThemeToggle() {
       themeIcon.classList.replace("fa-sun", "fa-moon");
     }
 
-    // --- NEW PART: Update reCAPTCHA theme ---
     const recaptcha = document.querySelector(".g-recaptcha");
     if (recaptcha) {
       recaptcha.setAttribute("data-theme", theme);
@@ -67,7 +61,6 @@ function initThemeToggle() {
 
   themeToggle.addEventListener("click", () => {
     const isDark = document.documentElement.classList.contains("dark");
-    // We toggle *after* checking the current state
     const newTheme = isDark ? "light" : "dark";
     localStorage.setItem("theme", newTheme);
     applyTheme(newTheme);
@@ -107,16 +100,12 @@ function initMobileMenu() {
   });
 }
 
-// Handles the "scroll to top" button
-// script.js
-
 // Handles the "scroll to top" button visibility and action
 function initScrollToTop() {
   const scrollTopBtn = document.getElementById("scrollTopBtn");
   if (!scrollTopBtn) return;
 
   window.addEventListener("scroll", () => {
-    // Show the button if user has scrolled down 300px
     if (window.pageYOffset > 300) {
       scrollTopBtn.classList.add("visible");
     } else {
@@ -124,13 +113,12 @@ function initScrollToTop() {
     }
   });
 
-  // Scroll to the top when the button is clicked
   scrollTopBtn.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 }
 
-// Handles active nav link highlighting
+// Handles active nav link highlighting on scroll
 function initScrollSpy() {
   const sections = document.querySelectorAll("section[id], header[id]");
   const navLinks = document.querySelectorAll(".nav-link");
