@@ -42,12 +42,14 @@ function initTyped() {
 }
 
 // Handles the light/dark mode theme toggle
+// Handles the light/dark mode theme toggle
 function initThemeToggle() {
   const themeToggle = document.getElementById("theme-toggle");
   const themeIcon = document.getElementById("theme-icon");
   if (!themeToggle || !themeIcon) return;
 
   const applyTheme = (theme) => {
+    // --- This part is the same ---
     if (theme === "dark") {
       document.documentElement.classList.add("dark");
       themeIcon.classList.replace("fa-moon", "fa-sun");
@@ -55,11 +57,18 @@ function initThemeToggle() {
       document.documentElement.classList.remove("dark");
       themeIcon.classList.replace("fa-sun", "fa-moon");
     }
+
+    // --- NEW PART: Update reCAPTCHA theme ---
+    const recaptcha = document.querySelector(".g-recaptcha");
+    if (recaptcha) {
+      recaptcha.setAttribute("data-theme", theme);
+    }
   };
 
   themeToggle.addEventListener("click", () => {
-    const isDark = document.documentElement.classList.toggle("dark");
-    const newTheme = isDark ? "dark" : "light";
+    const isDark = document.documentElement.classList.contains("dark");
+    // We toggle *after* checking the current state
+    const newTheme = isDark ? "light" : "dark";
     localStorage.setItem("theme", newTheme);
     applyTheme(newTheme);
   });
